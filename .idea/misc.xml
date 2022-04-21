@@ -5,6 +5,9 @@
       <map>
         <entry key="..\:/Users/vignesh-pt5413/AndroidStudioProjects/Project1/app/src/main/res/layout/activity_main.xml" value="0.12664640324214793" />
         <entry key="..\:/Users/vignesh-pt5413/AndroidStudioProjects/Project1/app/src/main/res/layout/recycler_list.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.27309782608695654" />
+        <entry key="app/src/main/res/layout/card_list.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/recycler_list.xml" value="0.25" />
       </map>
     </option>
   </component>

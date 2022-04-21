@@ -9,11 +9,12 @@ import com.example.project1.modelclass.Quote
 
 class RecyclerViewAdapter (private val context: Context,private val dataset:List<Quote>)
     : RecyclerView.Adapter<RecyclerViewAdapter.ItemViewHolder>(){
-    class ItemViewHolder(private val view: RecyclerListBinding) : RecyclerView.ViewHolder(view.root){
-fun bind(quote: Quote){
-   /* view.viewmodel = quote
-    view.executePendingBindings()*/
-}
+
+        class ItemViewHolder(private val view: RecyclerListBinding) : RecyclerView.ViewHolder(view.root){
+        //fun bind(quote: Quote){
+//   /* view.viewmodel = quote
+//    view.executePendingBindings()*/
+//}
 
 
     }
@@ -34,5 +35,6 @@ fun bind(quote: Quote){
         return dataset.size
     }
 }
+
 
 
