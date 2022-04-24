@@ -1,56 +1,62 @@
 package com.example.project1.viewmodel
 
-import androidx.annotation.NonNull
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.project1.modelclass.ApiResponse
+import android.app.Application
+import androidx.lifecycle.*
 import com.example.project1.modelclass.Quote
 import com.example.project1.retrofit.QuoteApiService
 import com.example.project1.retrofit.retrofit
 import com.example.project1.roomDB.DataBase
-import com.google.gson.Gson
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.*
+import retrofit2.awaitResponse
+
 
 enum class QuoteApiStatus { LOADING, ERROR, DONE }
 
-class MainActivityViewModel() : ViewModel() {
+class MainActivityViewModel constructor(application: Application) : ViewModel() {
 
     private val _status = MutableLiveData<QuoteApiStatus>()
 
     val status: LiveData<QuoteApiStatus> = _status
 
-    private val _quote = MutableLiveData<List<Quote>>()
-    lateinit var mainDatabase:DataBase
+    lateinit var _quote : LiveData<List<Quote>>
+    var mainDatabase:DataBase
 
-    val quoteList: LiveData<List<Quote>> = _quote
-init {
-    getQuote()
+    var userDataList: MutableLiveData<List<Quote>> = MutableLiveData()
+
+    init {
+    mainDatabase = DataBase.getDatabase(application)
+    //getQuote()
 }
 
-private fun getQuote(){
+    fun loadItems(): LiveData<List<Quote>> {
+        CoroutineScope(Dispatchers.IO).launch {
+            mainDatabase.Dao().deleteAllNotes()
+        }
+        val retrofitService: QuoteApiService by lazy { retrofit.create(QuoteApiService::class.java) }
 
-    val retrofitService: QuoteApiService by lazy { retrofit.create(QuoteApiService::class.java) }
-    retrofitService.getQuotes()
-        .enqueue(object : Callback<List<ApiResponse>> {
-            override fun onResponse(
-                @NonNull call: Call<List<ApiResponse>>,
-                @NonNull response: Response<List<ApiResponse>>
-            ) {
+        return liveData {
 
-                println("onResponse  "+Gson().toJson(response.body()))
+            val getFromNetwork = retrofitService.getQuotes()
+
+            val response = getFromNetwork.awaitResponse()
+
+            val newslist = response.body()
+            if (newslist != null) {
+                withContext(Dispatchers.IO) {
+                    newslist.forEach{
+                            quotesData ->
+                        mainDatabase.Dao().insert(Quote(quotesData.id,quotesData.userId,quotesData.title,quotesData.body))
+                    }
+
+                    val loadFromLocal = mainDatabase.Dao().getAllNotesNew()
+
+                    emitSource(loadFromLocal)
+                }
             }
 
-            override fun onFailure(
-                @NonNull call: Call<List<ApiResponse>>,
-                @NonNull t: Throwable
-            ) {
-                println("onResponse  "+t.message)
 
-            }
-        })
 
-}
+        }
+    }
+
 }

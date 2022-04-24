@@ -17,18 +17,13 @@ interface Dao {
     @Delete
     fun delete(note: Quote)
 
-    @Query("delete from users")
+    @Query("DELETE FROM users")
     fun deleteAllNotes()
 
-    @Query("select * from users ")
-    fun getAllNotes(): LiveData<List<Quote>>
-/*
+    @Query("select * from users")
+    fun getAllNotes(): List<Quote>
 
-@Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun userList (quote: Quote)
-
-    @Query("SELECT * FROM user's ORDER BY id ASC")
-    fun allData() : LiveData<List<Quote>>
-*/
+    @Query("select * from users")
+    fun getAllNotesNew(): LiveData<List<Quote>>
 
 }

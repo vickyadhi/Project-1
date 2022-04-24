@@ -22,6 +22,9 @@ interface QuoteApiService{
         @GET("posts")
         fun getQuotes() : Call<List<ApiResponse>>
 
+    @GET("posts")
+    fun getQuotesNew() : Call<List<ApiResponse>>
+
     }
 
 

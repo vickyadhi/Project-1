@@ -16,6 +16,7 @@ abstract class DataBase : RoomDatabase(){
                val tempInstance = INSTANCE
                if (tempInstance != null) {
                    return tempInstance
+
                }
                synchronized(this) {
                    val instance = Room.databaseBuilder(
@@ -27,5 +28,7 @@ abstract class DataBase : RoomDatabase(){
                    return instance
                }
            }
+
+
        }
 }

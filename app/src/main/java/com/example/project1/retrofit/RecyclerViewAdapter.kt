@@ -2,31 +2,44 @@ package com.example.project1.retrofit
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.project1.databinding.RecyclerListBinding
+import com.example.project1.R
 import com.example.project1.modelclass.Quote
 
-class RecyclerViewAdapter (private val context: Context,private val dataset:List<Quote>)
+class RecyclerViewAdapter (private val context: Context, private val dataset:List<Quote>)
     : RecyclerView.Adapter<RecyclerViewAdapter.ItemViewHolder>(){
 
-        class ItemViewHolder(private val view: RecyclerListBinding) : RecyclerView.ViewHolder(view.root){
-        //fun bind(quote: Quote){
-//   /* view.viewmodel = quote
-//    view.executePendingBindings()*/
-//}
+        class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+             var id : TextView
+             var title : TextView
+             var body : TextView
+            init {
+                id = itemView.findViewById(R.id.id)
+                title = itemView.findViewById(R.id.title)
+                body = itemView.findViewById(R.id.body)
+            }
+
 
 
     }
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ItemViewHolder {
-        return ItemViewHolder(RecyclerListBinding.inflate(LayoutInflater.from(parent.context)))
+    ):  ItemViewHolder {
+       val itemView = LayoutInflater.from(context).inflate(R.layout.card_list , parent,false)
+        return ItemViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-     val recyclerquotelist = getItemId(position)
+        holder.id.text = dataset[position].id.toString()
+        holder.title.text = dataset[position].title
+        holder.body.text = dataset[position].body
+
+
+        val recyclerquotelist = getItemId(position)
         //holder.bind(recyclerquotelist)
 
     }
