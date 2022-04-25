@@ -14,10 +14,12 @@ class RecyclerViewAdapter (private val context: Context, private val dataset:Lis
 
         class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
              var id : TextView
+             var user_id : TextView
              var title : TextView
              var body : TextView
             init {
                 id = itemView.findViewById(R.id.id)
+                user_id = itemView.findViewById(R.id.user_id)
                 title = itemView.findViewById(R.id.title)
                 body = itemView.findViewById(R.id.body)
             }
@@ -35,6 +37,7 @@ class RecyclerViewAdapter (private val context: Context, private val dataset:Lis
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.id.text = dataset[position].id.toString()
+        holder.user_id.text = dataset[position].user_id.toString()
         holder.title.text = dataset[position].title
         holder.body.text = dataset[position].body
 
