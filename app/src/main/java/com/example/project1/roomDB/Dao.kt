@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.Dao
 import com.example.project1.modelclass.Quote
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface Dao {
@@ -24,6 +25,6 @@ interface Dao {
     fun getAllNotes(): List<Quote>
 
     @Query("select * from users")
-    fun getAllNotesNew(): LiveData<List<Quote>>
+    fun getAllNotesNew(): Flow<List<Quote>>
 
 }

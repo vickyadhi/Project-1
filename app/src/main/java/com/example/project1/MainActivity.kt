@@ -32,14 +32,23 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter=recyclerViewAdapter
 
         mainViewModel= ViewModelProvider(this, MainFactory(application)).get(MainActivityViewModel::class.java)
-        mainViewModel.loadItems().observe(this, androidx.lifecycle.Observer { userDataList ->
+
+        mainViewModel.userDataList.observe(this, androidx.lifecycle.Observer { userDataList ->
             quoteList.clear()
             quoteList.addAll(userDataList)
             recyclerViewAdapter.notifyDataSetChanged()
-
-            println("apiResponse  "+userDataList.size)
         })
 
+      /*  mainViewModel.loadItems().observe(this, androidx.lifecycle.Observer { userDataList ->
+
+            println("apiResponse  "+userDataList.size)
+        })*/
+
+
+
+       /* CoroutineScope(Dispatchers.IO).launch {
+            mainDatabase = DataBase.getDatabase(application)
+        }*/
     }
 
 }

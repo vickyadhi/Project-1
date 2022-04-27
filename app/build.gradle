@@ -70,13 +70,17 @@ dependencies {
     kapt 'androidx.room:room-compiler:2.4.2'
     androidTestImplementation 'androidx.room:room-testing:2.4.2'
 
+    //coroutine with flow
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
+
+
     //moshi
     implementation 'com.squareup.moshi:moshi-kotlin:1.9.3'
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
 
     //card
     implementation "androidx.cardview:cardview:1.0.0"
-
     implementation "androidx.core:core-ktx:1.7.0"
 
 
